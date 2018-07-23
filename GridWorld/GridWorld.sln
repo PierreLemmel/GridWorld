@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2027
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Troikatorz.GridWorld", "Troikatorz.GridWorld\Troikatorz.GridWorld.csproj", "{5FA6D90D-786E-4B71-81DC-BFAD2A1F28DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Troikatorz.GridWorld.Tests", "Troikatorz.GridWorld.Tests\Troikatorz.GridWorld.Tests.csproj", "{5F21C666-0DB3-431A-8EE0-EFFD66CD4D7D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5FA6D90D-786E-4B71-81DC-BFAD2A1F28DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FA6D90D-786E-4B71-81DC-BFAD2A1F28DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FA6D90D-786E-4B71-81DC-BFAD2A1F28DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FA6D90D-786E-4B71-81DC-BFAD2A1F28DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F21C666-0DB3-431A-8EE0-EFFD66CD4D7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F21C666-0DB3-431A-8EE0-EFFD66CD4D7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F21C666-0DB3-431A-8EE0-EFFD66CD4D7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F21C666-0DB3-431A-8EE0-EFFD66CD4D7D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B2ADD6CB-8447-4C30-93D6-8B20F8766370}
+	EndGlobalSection
+EndGlobal

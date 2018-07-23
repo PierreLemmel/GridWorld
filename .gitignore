@@ -3,3 +3,7 @@
 ################################################################################
 
 /GridWorld/.vs/GridWorld/v15
+/GridWorld/Troikatorz.GridWorld.Tests/bin/Debug/netcoreapp2.0
+/GridWorld/Troikatorz.GridWorld.Tests/obj
+/GridWorld/Troikatorz.GridWorld/bin/Debug
+/GridWorld/Troikatorz.GridWorld/obj

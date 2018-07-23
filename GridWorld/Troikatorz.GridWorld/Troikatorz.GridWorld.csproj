@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Pierre Lemmel</Authors>
+    <Company>Pierre Lemmel</Company>
+    <RepositoryUrl>https://github.com/PierreLemmel/GridWorld</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/PierreLemmel/GridWorld</PackageProjectUrl>
+    <RepositoryType>https://github.com/PierreLemmel/GridWorld</RepositoryType>
+    <PackageTags>Grid GridWorld</PackageTags>
+    <Description>Library for grid based projects</Description>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+  </PropertyGroup>
+
+</Project>
