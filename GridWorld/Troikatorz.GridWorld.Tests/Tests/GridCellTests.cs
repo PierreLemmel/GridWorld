@@ -1,5 +1,7 @@
 ﻿using NUnit.Framework;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Troikatorz.GridWorld.Tests
 {
@@ -65,6 +67,86 @@ namespace Troikatorz.GridWorld.Tests
             {
                 GridCell<ushort> cell = new GridCell<ushort>(grid, row, col);
             });
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GridCellNeighboursDatasource))]
+        public void GridCell_Neighbours_EnumerateCells_DoesNotThrow(int row, int column)
+        {
+            Grid<long> grid = new Grid<long>(GRID_WIDTH, GRID_HEIGHT);
+
+            GridCell<long> cell = grid[row, column];
+
+            IEnumerable<GridCell<long>> neighbours = cell.Neighbours;
+            foreach (GridCell<long> neighbour in neighbours) continue;
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GridCellNeighboursDatasource))]
+        public void GridCell_Neighbours_AlwaysContainsNeighbours(int row, int column)
+        {
+            Grid<long> grid = new Grid<long>(GRID_WIDTH, GRID_HEIGHT);
+
+            GridCell<long> cell = grid[row, column];
+
+            IEnumerable<GridCell<long>> neighbours = cell.Neighbours;
+
+            bool hasNeighbours = neighbours.Any();
+
+            Assert.IsTrue(hasNeighbours);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GridCellNeighboursDatasource))]
+        public void GridCell_Neighbours_AreAllNeighbour(int row, int column)
+        {
+            Grid<long> grid = new Grid<long>(GRID_WIDTH, GRID_HEIGHT);
+
+            GridCell<long> cell = grid[row, column];
+
+            IEnumerable<GridCell<long>> neighbours = cell.Neighbours;
+
+            bool areAllNeighbours = neighbours.All(neighbour =>
+            {
+                int deltaRow = cell.Row - neighbour.Row;
+                int deltaCol = cell.Column - neighbour.Column;
+
+                return deltaRow >= -1 && deltaRow <= 1 && deltaCol >= -1 && deltaCol <= 1;
+            });
+
+            Assert.IsTrue(areAllNeighbours);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GridCellNeighboursDatasource))]
+        public void GridCell_Neighbours_DoesNotContainSelf(int row, int column)
+        {
+            Grid<long> grid = new Grid<long>(GRID_WIDTH, GRID_HEIGHT);
+
+            GridCell<long> cell = grid[row, column];
+
+            IEnumerable<GridCell<long>> neighbours = cell.Neighbours;
+
+            bool containsSelf = neighbours.Contains(cell);
+
+            Assert.IsFalse(containsSelf);
+        }
+
+        private static IEnumerable<int[]> GridCellNeighboursDatasource
+        {
+            get
+            {
+                yield return new[] { 2, 8 };
+                yield return new[] { 8, 2 };
+                yield return new[] { 0, 2 };
+                yield return new[] { 8, 0 };
+                yield return new[] { GRID_HEIGHT - 1, 2 };
+                yield return new[] { 8, GRID_WIDTH - 1 };
+                yield return new[] { 0, 0 };
+                yield return new[] { 0, GRID_WIDTH - 1 };
+                yield return new[] { GRID_HEIGHT - 1, 0 };
+                yield return new[] { GRID_HEIGHT - 1, GRID_WIDTH - 1 };
+            }
         }
     }
 }
