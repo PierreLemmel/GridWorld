@@ -1,5 +1,7 @@
 ﻿using NUnit.Framework;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Troikatorz.GridWorld.Tests
 {
@@ -427,8 +429,8 @@ namespace Troikatorz.GridWorld.Tests
                 {
                     GridCell<int> gridCell = grid[row, col];
 
-                    int cellRow = gridCell.Row;
-                    int cellColumn = gridCell.Column;
+                    int cellRow = gridCell.RowIndex;
+                    int cellColumn = gridCell.ColumnIndex;
 
                     Assert.AreEqual(row, cellRow);
                     Assert.AreEqual(col, cellColumn);
@@ -455,9 +457,7 @@ namespace Troikatorz.GridWorld.Tests
         }
 
         [Test]
-        [TestCase(0, 0)]
-        [TestCase(2, 8)]
-        [TestCase(GRID_HEIGHT - 1, GRID_WIDTH - 1)]
+        [TestCaseSource(nameof(GridIndexCorrectValuesDataSource))]
         public void Grid_Index_WhenArgumenIsCorrect_DoesNotThrow(int row, int col)
         {
             Grid<decimal> grid = new Grid<decimal>(GRID_WIDTH, GRID_HEIGHT, 28.5m);
@@ -466,6 +466,84 @@ namespace Troikatorz.GridWorld.Tests
             {
                 GridCell<decimal> cell = grid[row, col];
             });
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GridIndexCorrectValuesDataSource))]
+        public void Grid_Index_MultipleAccess_ReturnsSameCell(int row, int col)
+        {
+            Grid<float> grid = new Grid<float>(GRID_WIDTH, GRID_HEIGHT, 3.14f);
+
+            GridCell<float> cell1 = grid[row, col];
+            GridCell<float> cell2 = grid[row, col];
+
+            Assert.AreEqual(cell1, cell2);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GridCellsOnSameRowDataSource))]
+        public void Grid_Cells_OnSameRow_Share_Row(int row, int col1, int col2)
+        {
+            Grid<object> grid = new Grid<object>(GRID_WIDTH, GRID_HEIGHT, "Why not?");
+
+            GridCell<object> cell1 = grid[row, col1];
+            GridRow<object> row1 = cell1.Row;
+
+            GridCell<object> cell2 = grid[row, col2];
+            GridRow<object> row2 = cell2.Row;
+
+            Assert.AreEqual(row1, row2);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GridCellsOnSameColumnDataSource))]
+        public void Grid_Cells_OnSameColumn_Share_Column(int column, int row1, int row2)
+        {
+            Grid<object> grid = new Grid<object>(GRID_WIDTH, GRID_HEIGHT, "Why not?");
+
+            GridCell<object> cell1 = grid[row1, column];
+            GridColumn<object> col1 = cell1.Column;
+
+            GridCell<object> cell2 = grid[row2, column];
+            GridColumn<object> col2 = cell2.Column;
+
+            Assert.AreEqual(col1, col2);
+        }
+        #endregion
+
+        #region DataSources
+        private static IEnumerable<int[]> GridIndexCorrectValuesDataSource
+        {
+            get
+            {
+                yield return new[] { 0, 0 };
+                yield return new[] { 2, 8 };
+                yield return new[] { 0, GRID_WIDTH - 1 };
+                yield return new[] { GRID_HEIGHT - 1, 0 };
+                yield return new[] { GRID_HEIGHT - 1, GRID_WIDTH - 1 };
+            }
+        }
+
+        private static IEnumerable<int[]> GridCellsOnSameRowDataSource
+        {
+            get
+            {
+                yield return new int[] { 3, 2, 8 };
+                yield return new int[] { 0, 0, GRID_WIDTH - 1 };
+                yield return new int[] { GRID_HEIGHT - 1, 2, 8 };
+                yield return new int[] { GRID_HEIGHT - 1, 0, GRID_WIDTH - 1 };
+            }
+        }
+
+        private static IEnumerable<int[]> GridCellsOnSameColumnDataSource
+        {
+            get
+            {
+                yield return new int[] { 5, 4, 7 };
+                yield return new int[] { 0, 0, GRID_HEIGHT - 1 };
+                yield return new int[] { GRID_WIDTH - 1, 4, 7 };
+                yield return new int[] { GRID_WIDTH - 1, 0, GRID_HEIGHT - 1 };
+            }
         }
         #endregion
     }

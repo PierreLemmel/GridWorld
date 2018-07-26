@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using System;
+using System.Linq;
 
 namespace Troikatorz.GridWorld.Tests
 {
@@ -71,6 +72,19 @@ namespace Troikatorz.GridWorld.Tests
             {
                 GridColumn<char> column = gcc[col];
             });
+        }
+
+        [Test]
+        public void GridColumnCollection_Columns_Count_Equals_Grid_Width()
+        {
+            Grid<ushort> grid = new Grid<ushort>(GRID_WIDTH, GRID_HEIGHT);
+
+            GridColumnCollection<ushort> gcc = new GridColumnCollection<ushort>(grid);
+
+            int columnCount = gcc.Count();
+            int gridWidth = grid.Width;
+
+            Assert.AreEqual(columnCount, gridWidth);
         }
     }
 }

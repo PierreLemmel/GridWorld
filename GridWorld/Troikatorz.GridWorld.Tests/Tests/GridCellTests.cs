@@ -108,8 +108,8 @@ namespace Troikatorz.GridWorld.Tests
 
             bool areAllNeighbours = neighbours.All(neighbour =>
             {
-                int deltaRow = cell.Row - neighbour.Row;
-                int deltaCol = cell.Column - neighbour.Column;
+                int deltaRow = cell.RowIndex - neighbour.RowIndex;
+                int deltaCol = cell.ColumnIndex - neighbour.ColumnIndex;
 
                 return deltaRow >= -1 && deltaRow <= 1 && deltaCol >= -1 && deltaCol <= 1;
             });
@@ -132,6 +132,31 @@ namespace Troikatorz.GridWorld.Tests
             Assert.IsFalse(containsSelf);
         }
 
+        [Test]
+        public void GridCell_Row_Index_Equals_RowIndex()
+        {
+            Grid<long> grid = new Grid<long>(GRID_WIDTH, GRID_HEIGHT);
+
+            GridCell<long> cell = grid[4, 8];
+
+            GridRow<long> row = cell.Row;
+
+            Assert.AreEqual(cell.RowIndex, row.Row);
+        }
+
+        [Test]
+        public void GridCell_Column_Index_Equals_ColumnIndex()
+        {
+            Grid<long> grid = new Grid<long>(GRID_WIDTH, GRID_HEIGHT);
+
+            GridCell<long> cell = grid[4, 8];
+
+            GridColumn<long> column = cell.Column;
+
+            Assert.AreEqual(cell.ColumnIndex, column.Column);
+        }
+
+        #region DataSources
         private static IEnumerable<int[]> GridCellNeighboursDatasource
         {
             get
@@ -148,5 +173,6 @@ namespace Troikatorz.GridWorld.Tests
                 yield return new[] { GRID_HEIGHT - 1, GRID_WIDTH - 1 };
             }
         }
+        #endregion
     }
 }

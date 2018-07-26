@@ -10,6 +10,9 @@ namespace Troikatorz.GridWorld
         public int Width { get { return cells.GetLength(1); } }
         public int Height { get { return cells.GetLength(0); } }
 
+        public GridRowCollection<T> Rows { get; }
+        public GridColumnCollection<T> Columns { get; }
+
         public Grid(T[,] values)
         {
             Check.NotNull(values, nameof(values));
@@ -22,6 +25,9 @@ namespace Troikatorz.GridWorld
 
             CreateCells(width, height);
             InitializeCells(values);
+
+            Rows = new GridRowCollection<T>(this);
+            Columns = new GridColumnCollection<T>(this);
         }
 
         public Grid(int width, int height, T defaultValue)
@@ -31,6 +37,9 @@ namespace Troikatorz.GridWorld
 
             CreateCells(width, height);
             InitializeCells(defaultValue);
+
+            Rows = new GridRowCollection<T>(this);
+            Columns = new GridColumnCollection<T>(this);
         }
 
         public Grid(int width, int height) : this(width, height, default(T)) { }

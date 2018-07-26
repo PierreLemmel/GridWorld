@@ -5,8 +5,12 @@ namespace Troikatorz.GridWorld
 {
     public sealed class GridCell<T>
     {
-        public int Row { get; }
-        public int Column { get; }
+        public int RowIndex { get; }
+        public int ColumnIndex { get; }
+
+        public GridRow<T> Row { get { return Grid.Rows[RowIndex]; } }
+        public GridColumn<T> Column { get { return Grid.Columns[ColumnIndex]; } }
+
         public Grid<T> Grid { get; }
         public T Value { get; set; }
 
@@ -16,10 +20,10 @@ namespace Troikatorz.GridWorld
             Grid = grid;
 
             Check.IsInInterval(row, 0, Grid.Height);
-            Row = row;
+            RowIndex = row;
 
             Check.IsInInterval(column, 0, Grid.Width);
-            Column = column;
+            ColumnIndex = column;
             
             Value = value;
         }
@@ -35,16 +39,16 @@ namespace Troikatorz.GridWorld
         {
             get
             {
-                int minRow = Math.Max(0, Row - 1);
-                int maxRow = Math.Min(Row + 1, Grid.Height - 1);
-                int minCol = Math.Max(0, Column - 1);
-                int maxCol = Math.Min(Column + 1, Grid.Width - 1);
+                int minRow = Math.Max(0, RowIndex - 1);
+                int maxRow = Math.Min(RowIndex + 1, Grid.Height - 1);
+                int minCol = Math.Max(0, ColumnIndex - 1);
+                int maxCol = Math.Min(ColumnIndex + 1, Grid.Width - 1);
 
                 for (int row = minRow; row <= maxRow; row++)
                 {
                     for (int col = minCol; col <= maxCol; col++)
                     {
-                        if (row == Row || col == Column) continue;
+                        if (row == RowIndex || col == ColumnIndex) continue;
 
                         yield return Grid[row, col];
                     }

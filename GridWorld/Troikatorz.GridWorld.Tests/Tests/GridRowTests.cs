@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using System;
+using System.Linq;
 
 namespace Troikatorz.GridWorld.Tests
 {
@@ -94,6 +95,20 @@ namespace Troikatorz.GridWorld.Tests
             {
                 GridCell<ushort> cell = gridRow[col];
             });
+        }
+
+        [Test]
+        public void GridRow_Cells_Count_Equals_Grid_Width()
+        {
+            Grid<ushort> grid = new Grid<ushort>(GRID_WIDTH, GRID_HEIGHT);
+            int row = 8;
+
+            GridRow<ushort> gridRow = new GridRow<ushort>(grid, row);
+
+            int cellCount = gridRow.Count();
+            int gridWidth = grid.Width;
+
+            Assert.AreEqual(cellCount, gridWidth);
         }
     }
 }
